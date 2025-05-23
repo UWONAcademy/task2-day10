@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 2 - Day 10</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #5cb1a6, #6dc1b5);
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .section-title {
+      font-size: 20px;
+      margin-top: 30px;
+      margin-bottom: 12px;
+      color: #34495e;
+      border-bottom: 2px solid #4caf91;
+      padding-bottom: 4px;
+    }
+    .question {
+      margin-bottom: 25px;
+    }
+    .english {
+      font-size: 16px;
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+    .translation {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    input[type="text"] {
+      width: 140px;
+      padding: 6px;
+      margin: 0 3px;
+      font-size: 15px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+    }
+    .check-btn {
+      margin-top: 6px;
+      background: #4caf91;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .feedback {
+      margin-top: 6px;
+      font-weight: bold;
+    }
+    .example {
+      margin-top: 4px;
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .correct { color: green; }
+    .incorrect { color: red; }
+    @media (max-width: 600px) {
+      input[type="text"] {
+        width: 100px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Task 2 - Day 10</h2>
+
+    <div class="section-title">一. 句子填空（Globalization）</div>
+
+    <div id="q1" class="question"></div>
+    <div id="q2" class="question"></div>
+    <div id="q3" class="question"></div>
+
+    <div class="section-title">二. 短语填空（Crime）</div>
+
+    <!-- 保持原样 -->
+    <div class="question"><div class="english">1. 犯罪：</div><input type="text" id="p1"><button class="check-btn" onclick="checkPhrase('p1', 'commit a crime')">Check</button><div class="feedback" id="fb_p1"></div></div>
+    <div class="question"><div class="english">2. 触犯法律：</div><input type="text" id="p2"><button class="check-btn" onclick="checkPhrase('p2', 'violate laws')">Check</button><div class="feedback" id="fb_p2"></div></div>
+    <div class="question"><div class="english">3. 阻止犯罪让社会更安全：</div><input type="text" id="p3"><button class="check-btn" onclick="checkPhrase('p3', 'prevent crime and make community safer')">Check</button><div class="feedback" id="fb_p3"></div></div>
+    <div class="question"><div class="english">4. 抓捕罪犯：</div><input type="text" id="p4"><button class="check-btn" onclick="checkPhrase('p4', 'catch criminals')">Check</button><div class="feedback" id="fb_p4"></div></div>
+    <div class="question"><div class="english">5. 震慑犯罪份子：</div><input type="text" id="p5"><button class="check-btn" onclick="checkPhrase('p5', 'deter criminals')">Check</button><div class="feedback" id="fb_p5"></div></div>
+    <div class="question"><div class="english">6. 遭受特定的处罚：</div><input type="text" id="p6"><button class="check-btn" onclick="checkPhrase('p6', 'be subject to certain punishment')">Check</button><div class="feedback" id="fb_p6"></div></div>
+    <div class="question"><div class="english">7. 社会的稳定和安全：</div><input type="text" id="p7"><button class="check-btn" onclick="checkPhrase('p7', 'social stability and security')">Check</button><div class="feedback" id="fb_p7"></div></div>
+    <div class="question"><div class="english">8. 犯罪的动机和情形：</div><input type="text" id="p8"><button class="check-btn" onclick="checkPhrase('p8', 'the motivation and circumstance of a crime')">Check</button><div class="feedback" id="fb_p8"></div></div>
+    <div class="question"><div class="english">9. 正当防卫：</div><input type="text" id="p9"><button class="check-btn" onclick="checkPhrase('p9', 'act in justifiable defense')">Check</button><div class="feedback" id="fb_p9"></div></div>
+  </div>
+
+  <script>
+    const examples = {
+      p1: { en: "It is illegal to commit a crime, regardless of the reason.", zh: "无论理由如何，犯罪都是违法的。" },
+      p2: { en: "Those who violate laws should face the consequences.", zh: "触犯法律的人应当承担后果。" },
+      p3: { en: "Strict policies can prevent crime and make community safer.", zh: "严格的政策可以防止犯罪，让社会更安全。" },
+      p4: { en: "Police must catch criminals before they commit further crimes.", zh: "警方必须在罪犯继续作案前将其抓捕。" },
+      p5: { en: "Severe punishment can deter criminals from reoffending.", zh: "严厉的惩罚可以震慑犯罪份子再次作案。" },
+      p6: { en: "Those who break the law should be subject to certain punishment.", zh: "违法者应当受到特定的处罚。" },
+      p7: { en: "The government must ensure social stability and security.", zh: "政府必须保障社会的稳定与安全。" },
+      p8: { en: "Judges consider the motivation and circumstance of a crime before sentencing.", zh: "法官在判刑前会考虑犯罪动机和情形。" },
+      p9: { en: "The suspect claimed he acted in justifiable defense.", zh: "嫌疑人声称他是出于正当防卫。" }
+    };
+
+    const sentences = [
+      {
+        id: "s1",
+        text: "Business is becoming increasingly international. It is now much easier to move to other countries to find work, and this leads to better employment prospects for individuals and to more diverse workplaces.",
+        translation: "商业变得越来越全球化。人们更容易去其他国家工作，从而带来更好的就业前景和更多样化的工作环境。",
+        containerId: "q1"
+      },
+      {
+        id: "s2",
+        text: "Globalization affects culture and language, too; minority languages are dying out because of the necessity of learning English for international business, and indigenous cultures are being rejected in favor of a dominant, often USA-based, culture.",
+        translation: "全球化也影响文化与语言。少数语言因人们必须学英语而消失，本土文化也因为人们更偏爱主流文化（通常是美式文化）而被忽视。",
+        containerId: "q2"
+      },
+      {
+        id: "s3",
+        text: "The progress of globalization leads to the wide sales of international brands into every corner of the world, and these bland packages might one day completely oust traditional objects of a nation, which would be a loss of richness and diversity in the world, as well as the sad disappearance of the manifestations of a place’s character.",
+        translation: "全球化推动国际品牌销售到世界各地。这些千篇一律的包装可能最终完全取代民族传统物品，造成世界文化多样性和地方特色的消失。",
+        containerId: "q3"
+      }
+    ];
+
+    function getRandomIndexes(array, min = 5, max = 7) {
+      const count = Math.min(Math.floor(Math.random() * (max - min + 1)) + min, array.length);
+      const set = new Set();
+      while (set.size < count) {
+        const i = Math.floor(Math.random() * array.length);
+        const word = array[i].replace(/[.,()"]/g, '');
+        if (word.length > 2 && !word.includes("'")) set.add(i);
+      }
+      return Array.from(set);
+    }
+
+    function renderSentence({ id, text, translation, containerId }) {
+      const words = text.split(" ");
+      const blanks = getRandomIndexes(words);
+      const answers = {};
+      const html = words.map((word, i) => {
+        const clean = word.replace(/[.,()"]/g, "");
+        const punct = word.match(/[.,()"]$/) ? word.slice(-1) : "";
+        if (blanks.includes(i)) {
+          const inputId = `${id}_${i}`;
+          answers[inputId] = clean.toLowerCase();
+          return `<input type="text" id="${inputId}" placeholder="...">${punct}`;
+        }
+        return word;
+      }).join(" ");
+      document.getElementById(containerId).innerHTML = `
+        <div class="english">${html}</div>
+        <div class="translation">${translation}</div>
+        <button class="check-btn" onclick='checkSentence("${id}", ${JSON.stringify(answers)})'>Check</button>
+        <div class="feedback" id="fb_${id}"></div>
+      `;
+    }
+
+    function checkSentence(id, answers) {
+      const feedback = document.getElementById("fb_" + id);
+      let correct = true;
+      for (const [inputId, expected] of Object.entries(answers)) {
+        const val = document.getElementById(inputId).value.trim().toLowerCase();
+        if (val !== expected) correct = false;
+      }
+      feedback.innerHTML = correct
+        ? "<span class='correct'>✔ 正确！</span>"
+        : `<span class='incorrect'>✘ 有错误</span> 正确答案：${Object.values(answers).join(" / ")}`;
+    }
+
+    function checkPhrase(id, answer) {
+      const feedback = document.getElementById("fb_" + id);
+      const value = document.getElementById(id).value.trim().toLowerCase();
+      const correctAnswer = answer.toLowerCase();
+      const example = examples[id];
+      let html = value === correctAnswer
+        ? `<span class='correct'>✔ 正确！</span>`
+        : `<span class='incorrect'>✘ 错误</span> 正确答案：${answer}`;
+      if (example) {
+        html += `<div class="example">例句：${example.en}<br>翻译：${example.zh}</div>`;
+      }
+      feedback.innerHTML = html;
+    }
+
+    // 渲染所有句子
+    sentences.forEach(renderSentence);
+  </script>
+</body>
+</html>
